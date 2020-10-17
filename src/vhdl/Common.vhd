@@ -8,7 +8,7 @@ package Common is
     constant IMAGE_SIZE  : integer := 129599;   -- Pixel Count
     constant IMAGE_WIDTH : integer := 480;      -- Width in pixels
     constant IMAGE_HEIGHT : integer := 270;     -- Height in pixels
-    constant WINDOW_SIZE : integer := 10;       -- Image filter window size in pixels
+    constant WINDOW_SIZE : integer := 2;       -- Image filter window size in pixels
 
     -- Define data type for pixel
     SUBTYPE pixel_type is std_logic_vector((DATA_WIDTH-1) DOWNTO 0);

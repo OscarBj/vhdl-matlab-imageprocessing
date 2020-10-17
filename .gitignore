@@ -6,3 +6,7 @@
 *.cf
 *.ghw
 /output
+
+# Matlab
+*.m~
+temp.m

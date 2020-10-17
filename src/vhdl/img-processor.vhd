@@ -17,8 +17,7 @@ COMPONENT read_image_VHDL
          clock : IN  std_logic;
          rst : IN std_logic;
          image_block : OUT image_block_type;
-         read_done : OUT std_logic;
-         q : OUT  std_logic_vector(7 downto 0)
+         read_done : OUT std_logic
         );
 END COMPONENT;
 
@@ -28,23 +27,22 @@ COMPONENT write_image_VHDL
          rst : IN std_logic;
          write_sw: IN std_logic;
          image_block: IN image_block_type;
-         write_done : OUT std_logic;
-         q : OUT  std_logic_vector(7 downto 0)
+         write_done : OUT std_logic
         );
 END COMPONENT;
 
+    -- Image containers
     signal image_block_in : image_block_type;
     signal image_block_out : image_block_type;
 
-    --Inputs
+    -- Inputs
     signal clock : std_logic := '0';
     signal write_sw : std_logic := '0';
 
-    --Outputs
+    -- Outputs
     signal rst : std_logic := '0';
     signal read_done : std_logic := '0';
     signal write_done : std_logic := '0';
-    signal q : std_logic_vector(7 downto 0);
 
     -- Clock period definitions
     constant clock_period : time := 10 ns;
@@ -58,8 +56,7 @@ begin
         clock => clock,
         rst => rst,
         image_block => image_block_in,
-        read_done => read_done,
-        q => q
+        read_done => read_done
     );
 
     -- Write Image
@@ -68,8 +65,7 @@ begin
         rst => rst,
         write_sw => write_sw,
         image_block => image_block_out,
-        write_done => write_done,
-        q => q
+        write_done => write_done
     );
 
     -- Moving Average Filter Process
@@ -81,12 +77,17 @@ begin
         -- Window to use as intermediate storage
         variable window         : image_window_type;
         variable avg            : integer := 0;
-        variable ws             : integer := 100;    
+        variable ws             : integer := 4;
         begin
-            if(read_done = '1') then
+            
+            if(read_done = '1') then -- Start process when image read task is done
+
+                image_block_out <= image_block_in; -- Copy Image. Creates an unfiltered instead of black outer edge.
                 
                 report("Begin processing");
-                
+                report("Filtering..");
+
+                -- Loop trough image with window radius as offset from edge
                 for x in edgeX to IMAGE_WIDTH-edgeX loop
                     for y in edgeY to IMAGE_HEIGHT-edgeY loop
 
@@ -96,12 +97,15 @@ begin
                                 avg := avg + to_integer(unsigned(window(fx,fy)));
                             end loop;
                         end loop;
-                        avg := avg/ws;
+                        avg := avg/ws; -- Window average
                         image_block_out(x,y) <= std_logic_vector(to_unsigned(avg, DATA_WIDTH));
                         avg := 0;
                         end loop;
                 end loop;
-                
+                report("Normalizing");
+                -- TODO
+                report("Labeling");
+                -- TODO
                 report("Processing done");
 
                 -- Enable writer process to start

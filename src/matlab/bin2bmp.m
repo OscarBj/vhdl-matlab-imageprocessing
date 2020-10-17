@@ -1,5 +1,5 @@
-input_bin = '../../res/mont-blanc-480.bin';
-output_bmp = '../../res/mont-blanc-480-out.bmp';
+input_bin = '../../output/ff-out.bin';
+output_bmp = '../../res/ff-480-out.bmp';
 
 fid = fopen(input_bin);
 %I = fread(fid, Inf);

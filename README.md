@@ -14,3 +14,8 @@ Build commands
 > ghdl -r *top entity* --wave=../../output/img_processor.ghw --stop-time=1000ns --max-stack-alloc=10000<br>
 
 Writes processed image file together with waveform into output directory.
+
+# Algorithms
+- Box filter/ Moving average
+- Connected component labeling (CCL)
+- Normalization
