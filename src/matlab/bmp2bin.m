@@ -1,5 +1,5 @@
-input_bmp = '../../res/ff.bmp';
-output_bin = '../../res/ff-out.bin';
+input_bmp = '../../res/ff.bmp'; % Conversion input
+output_bin = '../../res/ff-out.bin'; % Conversion output
 
 I = imread(input_bmp);
 %I = I(:,:,3);

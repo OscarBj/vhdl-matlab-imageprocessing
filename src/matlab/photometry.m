@@ -31,5 +31,4 @@ J = box_filt(J);
 
 % CCL
 [c,o] = ccl(J);
-%imshowpair(X,c,'montage');
-image(c);
+imshowpair(X,c,'montage');

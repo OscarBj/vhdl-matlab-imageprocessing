@@ -37,7 +37,7 @@ function [connected,n_obj] = ccl(I)
     for i=1:M
         for j=1:N
             if J(i,j) == 1
-                n_obj = n_obj +1;
+                n_obj = n_obj +1; % Increment found components
                 index = [(j-1) * M + i];
                 connected(index) = mark;
                 while ~isempty(index)
@@ -81,6 +81,7 @@ function [connected,n_obj] = ccl(I)
                     connected(index) = mark;
                 end
                 mark = mark + difference;
+                neighbors = [];
             end
         end
     end

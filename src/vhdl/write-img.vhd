@@ -10,7 +10,8 @@ use work.Common.all;
 entity write_image_VHDL is
 
   generic (
-    IMAGE_FILE_NAME : string :="../../output/ff-out.bin"
+    IMAGE_FILE_NAME : string :="../../output/ff-out.bin";
+    IMAGE_FILE_NAME_TEST : string :="../../output/ff-8px-out.bin"
   );
 
   port(
